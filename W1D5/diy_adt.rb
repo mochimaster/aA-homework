@@ -41,25 +41,40 @@ end
 
 
 class Map
+  attr_accessor :my_map
   def initialize
-    my_map = []
+    @my_map = []
 
   end
 
+
   def set(key, value)
+    @my_map.each do |subarr|
+      return false if subarr[0] == key
+    end
+
+    @my_map << [key,value]
 
   end
 
   def get(key)
 
+    @my_map.each { |sub_arr| return sub_arr[1] if sub_arr[0] == key }
+    # @my_map.select {|sub_arr| return sub_arr[1] if sub_arr[0] == key}
+    nil
   end
 
   def delete(key)
+    idx_to_delete = ""
+    @my_map.each_with_index do |sub_arr,idx|
+      idx_to_delete = idx if sub_arr[0] == key
+    end
 
+    @my_map.delete_at(idx_to_delete)
   end
 
   def show
-
+    p @my_map
   end
 
 
