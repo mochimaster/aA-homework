@@ -35,26 +35,45 @@ class Board
   end
 
   def make_move(start_pos, current_player_name)
+    p "current_player_name: #{current_player_name}"
+    p "current_player_name == @player_one: #{current_player_name == @player_one}"
+    p "current_player_name == @player_two: #{current_player_name == @player_two}"
+    p "THE WHOLE BOARD: #{@cups}"
+
     stones_to_distribute = @cups[start_pos].length
     p "start_pos: #{start_pos}"
-    p "Before clearing @cups[start_pos]: #{@cups[start_pos]}"
+    # p "Before clearing @cups[start_pos]: #{@cups[start_pos]}"
     p "Number of stones to distribute: #{stones_to_distribute}"
     @cups[start_pos] = []
 
     i = 1
     p "Before distributing @cups[start_pos]: #{@cups[start_pos]}"
     while i <= stones_to_distribute
-      p "i: #{i}"
-      if (start_pos + i) == 6 || (start_pos + i) == 13
-        p "break out of i and increase."
-        i += 1
-        break
-      end
-      p "inside loop: @cups[start_pos+1]: #{@cups[start_pos+1]}"
-      p "Before dropping stone into: #{@cups[start_pos+1]}"
-      @cups[start_pos+1] << :stone
-      p "After dropping stone into: #{@cups[start_pos+1]}"
+      # p "i: #{i}"
+      p "at cup: #{[start_pos+i]}"
 
+      if start_pos+i >= 13
+        start_pos+i = start_pos+i % 14
+      end
+
+      if (start_pos + i) == 6 || (start_pos + i) == 13
+        if current_player_name == @player_one && (start_pos + i) == 6
+          @cups[start_pos + i] << :stone
+        elsif
+          current_player_name == @player_two && (start_pos + i) == 13
+          @cups[start_pos + i] << :stone
+        else
+          p "before next"
+          i+=1
+          next
+        end
+      else
+
+        # p "inside loop: @cups[start_pos+i]: #{@cups[start_pos+i]}"
+        p "Before dropping stone into: #{@cups[start_pos+i]}"
+        @cups[start_pos+i] << :stone
+        p "After dropping stone into: #{@cups[start_pos+i]}"
+      end
 
       i+=1
     end
