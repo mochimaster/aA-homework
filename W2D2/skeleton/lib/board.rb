@@ -52,12 +52,11 @@ class Board
       # p "i: #{i}"
       p "at cup: #{[start_pos+i]}"
 
-      if start_pos+i >= 13
-        start_pos+i = start_pos+i % 14
-      end
+
 
       if (start_pos + i) == 6 || (start_pos + i) == 13
         if current_player_name == @player_one && (start_pos + i) == 6
+
           @cups[start_pos + i] << :stone
         elsif
           current_player_name == @player_two && (start_pos + i) == 13

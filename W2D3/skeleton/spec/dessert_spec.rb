@@ -79,6 +79,7 @@ describe Dessert do
   end
 
   describe "#make_more" do
+    allow(chef).to receive(:bake(cake)).and
     it "calls bake on the dessert's chef with the dessert passed in"
   end
 end
